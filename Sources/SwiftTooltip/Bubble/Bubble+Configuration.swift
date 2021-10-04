@@ -25,6 +25,9 @@ public extension Bubble {
         let lineWidth: CGFloat
         let cornerRadius: CGFloat
         let calloutSize: CGSize
+        let fillColor: UIColor
+        let strokeColor: UIColor
+        let calloutConfig: CalloutConfig
     }
     
     struct CalloutConfig {
@@ -33,7 +36,7 @@ public extension Bubble {
         var calloutSideOffset: CGFloat = 30
         var calloutViewPoint: CalloutViewPoint = .center
         
-        static var `default`: Self {
+        public static var `default`: Self {
             Self(alignment: .left, position: .down)
         }
     }
@@ -50,6 +53,23 @@ public extension Bubble {
         
         /// Callout will be pointing to the leading offset of the tooltip view
         case leading(CGFloat)
+    }
+    
+}
+
+// MARK: - Default Factory
+
+public extension Bubble.Config {
+    
+    static func `default`(calloutConfig: Bubble.CalloutConfig = .default) ->  Self {
+        Self(
+            lineWidth: 1,
+            cornerRadius: 8,
+            calloutSize: .init(width: 7, height: 7),
+            fillColor: .white,
+            strokeColor: .white,
+            calloutConfig: calloutConfig
+        )
     }
     
 }
