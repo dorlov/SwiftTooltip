@@ -2,10 +2,10 @@
     @testable import SwiftTooltip
 
     final class SwiftTooltipTests: XCTestCase {
+        
         func testExample() {
-            // This is an example of a functional test case.
-            // Use XCTAssert and related functions to verify your tests produce the correct
-            // results.
-            XCTAssertEqual(SwiftTooltip().text, "Hello, World!")
+            let message = "Tooltip message"
+            let tooltip = Tooltip(message: message, calloutConfig: .default)
+            XCTAssertEqual(tooltip.message, message)
         }
     }
