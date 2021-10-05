@@ -64,16 +64,40 @@ extension PinView {
     // MARK: - Width constraints
     
     @discardableResult
-    func makeWidth(_ width: CGFloat = .zero) -> PinView {
+    func makeWidth(_ width: CGFloat) -> PinView {
         self.widthAnchor.constraint(equalToConstant: width).isActive = true
+        return self
+    }
+    
+    @discardableResult
+    func makeMaxWidth(_ width: CGFloat) -> PinView {
+        self.widthAnchor.constraint(greaterThanOrEqualToConstant: width).isActive = true
+        return self
+    }
+    
+    @discardableResult
+    func makeMinWidth(_ width: CGFloat) -> PinView {
+        self.widthAnchor.constraint(greaterThanOrEqualToConstant: width).isActive = true
         return self
     }
     
     // MARK: - Height Constraints
     
     @discardableResult
-    func makeHeight(_ height: CGFloat = .zero) -> PinView {
+    func makeHeight(_ height: CGFloat) -> PinView {
         self.heightAnchor.constraint(equalToConstant: height).isActive = true
+        return self
+    }
+    
+    @discardableResult
+    func makeMaxHeight(_ height: CGFloat) -> PinView {
+        self.heightAnchor.constraint(greaterThanOrEqualToConstant: height).isActive = true
+        return self
+    }
+    
+    @discardableResult
+    func makeMinHeight(_ height: CGFloat) -> PinView {
+        self.heightAnchor.constraint(lessThanOrEqualToConstant: height).isActive = true
         return self
     }
     
