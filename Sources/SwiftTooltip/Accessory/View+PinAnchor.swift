@@ -21,6 +21,8 @@
 
 extension PinView {
     
+    // MARK: - Metric Constraints
+    
     @discardableResult
     func pinToTop(inset: CGFloat = .zero) -> PinView {
         self.topAnchor.constraint(equalTo: self.parent.topAnchor, constant: inset).isActive = true
@@ -59,17 +61,23 @@ extension PinView {
         return self
     }
     
+    // MARK: - Width constraints
+    
     @discardableResult
     func makeWidth(_ width: CGFloat = .zero) -> PinView {
         self.widthAnchor.constraint(equalToConstant: width).isActive = true
         return self
     }
     
+    // MARK: - Height Constraints
+    
     @discardableResult
     func makeHeight(_ height: CGFloat = .zero) -> PinView {
         self.heightAnchor.constraint(equalToConstant: height).isActive = true
         return self
     }
+    
+    // MARK: - Center to parent Constraints
     
     @discardableResult
     func centerVertically(offset: CGFloat = .zero) -> PinView {
@@ -80,6 +88,14 @@ extension PinView {
     @discardableResult
     func centerHorizontally(offset: CGFloat = .zero) -> PinView {
         self.centerXAnchor.constraint(equalTo: self.parent.centerXAnchor, constant: offset).isActive = true
+        return self
+    }
+    
+    @discardableResult
+    func centerInSuperview() -> PinView {
+        self
+            .centerVertically()
+            .centerHorizontally()
         return self
     }
 }
