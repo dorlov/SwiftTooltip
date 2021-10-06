@@ -13,32 +13,39 @@ protocol TooltipCoordinator {
     
 }
 
-final class TooltipCoordinatorDefault: TooltipCoordinator {
+extension TooltipViewController {
     
-    private weak var presenterVC: UIViewController?
-    private weak var rootVC: UIViewController?
-    private var onFinish: (() -> Void)?
-    
-    init(presenterVC: UIViewController?) {
-        self.presenterVC = presenterVC
-    }
-    
-    func start(
-        with tooltips: [Tooltip],
-        onFinish: (() -> Void)?
-    ) {
-        self.onFinish = onFinish
-        let tooltipVC = TooltipViewController()
-        self.rootVC = tooltipVC
-        tooltipVC.modalPresentationStyle = .custom
+    final class Coordinator: TooltipCoordinator {
         
-        presenterVC?.present(tooltipVC, animated: false, completion: nil)
-    }
+        private weak var presenterVC: UIViewController?
+        private weak var rootVC: UIViewController?
+        private var onFinish: (() -> Void)?
         
-    func finish() {
-        rootVC?.dismiss(animated: false, completion: { [weak self] in
-            self?.onFinish?()
-        })
+        init(presenterVC: UIViewController?) {
+            self.presenterVC = presenterVC
+        }
+        
+        func start(
+            with tooltips: [Tooltip],
+            onFinish: (() -> Void)?
+        ) {
+            self.onFinish = onFinish
+            
+            let viewModel = ViewModel(tooltips: tooltips)
+            
+            let tooltipVC = TooltipViewController(viewModel: viewModel)
+            self.rootVC = tooltipVC
+            tooltipVC.modalPresentationStyle = .custom
+            
+            presenterVC?.present(tooltipVC, animated: false, completion: nil)
+        }
+            
+        func finish() {
+            rootVC?.dismiss(animated: false, completion: { [weak self] in
+                self?.onFinish?()
+            })
+        }
+        
     }
-    
+
 }

@@ -7,13 +7,16 @@
 
 import UIKit
 
-public final class TooltipViewController: UIViewController {
+final class TooltipViewController: UIViewController {
     
     // MARK: - Properties
     
+    private let viewModel: ViewModel
+    
     // MARK: - Init
     
-    public init() {
+    init(viewModel: ViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     

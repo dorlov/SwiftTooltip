@@ -7,49 +7,43 @@
 
 import UIKit
 
-final class TooltipViewModel: TooltipViewModelInput {
-        
-    // MARK: - Properties
+extension TooltipViewController {
     
-    var onShowNextTip: ((TooltipDesription) -> Void)?
-    private var tooltips: [Tooltip]
+    final class ViewModel {
             
-    init(tooltips: [Tooltip]) {
-        self.tooltips = tooltips
-    }
-    
-    // MARK: - API
-    
-    func didTapTooltip() {
-        guard let next = popNext() else {
-            finish()
-            return
+        // MARK: - Properties
+        
+        var onShowNextTip: ((TooltipDesription) -> Void)?
+        private var tooltips: [Tooltip]
+                
+        init(tooltips: [Tooltip]) {
+            self.tooltips = tooltips
         }
         
-        onShowNextTip?(next)
-    }
-    
-    // MARK: - Private
-    
-    private func popNext() -> TooltipDesription? {
-        guard !tooltips.isEmpty else { return nil }
-        return TooltipDesription(
-            tooltip: tooltips.removeFirst()
-        )
-    }
-    
-    private func finish() {
+        // MARK: - API
         
+        func didTapTooltip() {
+            guard let next = popNext() else {
+                finish()
+                return
+            }
+            
+            onShowNextTip?(next)
+        }
+        
+        // MARK: - Private
+        
+        private func popNext() -> TooltipDesription? {
+            guard !tooltips.isEmpty else { return nil }
+            return TooltipDesription(
+                tooltip: tooltips.removeFirst()
+            )
+        }
+        
+        private func finish() {
+            
+        }
     }
-}
-
-
-
-protocol TooltipViewModelInput {
-    func didTapTooltip()
-}
-
-extension TooltipViewModel {
     
     struct TooltipDesription {
         var tooltip: Tooltip
