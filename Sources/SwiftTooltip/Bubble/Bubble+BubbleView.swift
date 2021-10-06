@@ -70,6 +70,13 @@ public extension Bubble {
             fatalError("init(coder:) has not been implemented")
         }
         
+        // MARK: - Overrides
+        
+        public override func removeFromSuperview() {
+            anchorView.removeFromSuperview()
+            super.removeFromSuperview()
+        }
+        
         // MARK: - Private
         
         private func setupView() {
@@ -95,6 +102,15 @@ public extension Bubble {
             }
 
             stackView.layoutMargins = stackMargin
+        }
+        
+        private func sourcePoint(for highlightedView: UIView) -> CGPoint {
+            switch config.calloutConfig.calloutViewPoint {
+            case .center:
+                return CGPoint(x: highlightedView.frame.midX, y: highlightedView.frame.minY)
+            case .leading(let offset):
+                return CGPoint(x: offset, y: highlightedView.frame.minY)
+            }
         }
     }
 }
