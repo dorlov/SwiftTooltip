@@ -61,6 +61,18 @@ extension PinView {
         return self
     }
     
+    @discardableResult
+    func putBelow(_ aboveView: UIView, inset: CGFloat = .zero) -> UIView {
+        self.topAnchor.constraint(equalTo: aboveView.bottomAnchor, constant: inset).isActive = true
+        return self
+    }
+    
+    @discardableResult
+    func putAbove(_ belowView: UIView, inset: CGFloat = .zero) -> UIView {
+        self.bottomAnchor.constraint(equalTo: belowView.topAnchor, constant: inset).isActive = true
+        return self
+    }
+    
     // MARK: - Width constraints
     
     @discardableResult
@@ -78,6 +90,16 @@ extension PinView {
     @discardableResult
     func makeMinWidth(_ width: CGFloat) -> PinView {
         self.widthAnchor.constraint(greaterThanOrEqualToConstant: width).isActive = true
+        return self
+    }
+    
+    @discardableResult
+    func makeWidthLessThenOrEqualToSuperview(multipliedBy amount: CGFloat = 0) -> UIView {
+        if amount > 0 {
+            self.widthAnchor.constraint(greaterThanOrEqualTo: self.parent.widthAnchor, multiplier: amount).isActive = true
+        } else {
+            self.widthAnchor.constraint(lessThanOrEqualTo: self.parent.widthAnchor).isActive = true
+        }
         return self
     }
     
