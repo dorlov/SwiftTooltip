@@ -47,6 +47,7 @@ public extension Bubble {
 
         private lazy var anchorView: UIView = {
             let anchorView = UIView()
+            stackView.translatesAutoresizingMaskIntoConstraints = false
             anchorView.makeSize(equalTo: CGSize(width: 1, height: 1))
             anchorView.backgroundColor = .clear
             return anchorView
@@ -77,14 +78,50 @@ public extension Bubble {
             super.removeFromSuperview()
         }
         
+        // MARK: - Public
+
+        public func showIn(_ holderView: UIView, highlightedView: UIView) {
+            holderView.addSubview(self)
+            self.translatesAutoresizingMaskIntoConstraints = false
+            makeWidthLessThenOrEqualToSuperview(multipliedBy: 0.6)
+            
+            if config.calloutConfig.position == .up {
+                putBelow(highlightedView, inset: -8)
+            } else if config.calloutConfig.position == .down {
+                putAbove(highlightedView, inset: -8)
+            }
+                            
+            let sourcePoint = self.sourcePoint(for: highlightedView)
+            
+            holderView.addSubview(anchorView)
+            anchorView
+                .pinToLeft(inset: sourcePoint.x)
+                .pinToBottom(inset: -sourcePoint.y)
+
+            switch alignment {
+            case .left:
+                let leadingOffset = sourcePoint.x - config.calloutConfig.calloutSideOffset
+                pinToLeft(inset: leadingOffset)
+            case .center:
+                centerHorizontally()
+            case .right:
+                self.rightAnchor.constraint(equalTo: anchorView.leftAnchor, constant: config.calloutConfig.calloutSideOffset).isActive = true
+            case .custom(let offset):
+                pinToLeft(inset: offset)
+            }
+
+        }
+        
         // MARK: - Private
         
         private func setupView() {
             backgroundColor = .clear
             addSubview(backgroundView)
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
             backgroundView.pinToSuperview()
             
             addSubview(stackView)
+            stackView.translatesAutoresizingMaskIntoConstraints = false
             stackView.pinToSuperview()
                     
             stackView.isLayoutMarginsRelativeArrangement = true
