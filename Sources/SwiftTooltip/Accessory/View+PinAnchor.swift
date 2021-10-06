@@ -101,6 +101,22 @@ extension PinView {
         return self
     }
     
+    @discardableResult
+    func makeSize(equalTo size: CGSize) -> UIView {
+        makeHeight(size.height)
+        makeWidth(size.width)
+        return self
+    }
+    
+    @discardableResult
+    func pinToSuperview(insets: UIEdgeInsets = .zero) -> UIView {
+        pinToTop(inset: insets.top)
+        pinToLeft(inset: insets.left)
+        pinToRight(inset: insets.right)
+        pinToBottom(inset: insets.bottom)
+        return self
+    }
+    
     // MARK: - Center to parent Constraints
     
     @discardableResult
