@@ -73,7 +73,7 @@ extension PinView {
         return self
     }
     
-    // MARK: - Width constraints
+    // MARK: - Width Constraints
     
     @discardableResult
     func makeWidth(_ width: CGFloat) -> PinView {

@@ -129,7 +129,6 @@ public extension Bubble {
             stackView.spacing = 12
         }
         
-        
         private func updateAppearance() {
             var stackMargin = stackView.layoutMargins
             if config.calloutConfig.position == .up {
