@@ -7,8 +7,9 @@
 
 import UIKit
 
-struct Tooltip {
+struct Tooltip: Identifiable {
     
+    var id: String = UUID().uuidString
     var message: String
     var calloutConfig: Bubble.CalloutConfig
     
