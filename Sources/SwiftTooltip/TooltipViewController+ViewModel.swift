@@ -15,9 +15,14 @@ extension TooltipViewController {
         
         var onShowNextTip: ((TooltipDesription) -> Void)?
         private var tooltips: [Tooltip]
+        private let coordinator: TooltipCoordinator
                 
-        init(tooltips: [Tooltip]) {
+        init(
+            tooltips: [Tooltip],
+            coordinator: TooltipCoordinator
+        ) {
             self.tooltips = tooltips
+            self.coordinator = coordinator
         }
         
         // MARK: - API
@@ -41,7 +46,7 @@ extension TooltipViewController {
         }
         
         private func finish() {
-            
+            coordinator.finish()
         }
     }
     

@@ -31,7 +31,7 @@ extension TooltipViewController {
         ) {
             self.onFinish = onFinish
             
-            let viewModel = ViewModel(tooltips: tooltips)
+            let viewModel = ViewModel(tooltips: tooltips, coordinator: self)
             
             let tooltipVC = TooltipViewController(viewModel: viewModel)
             self.rootVC = tooltipVC
