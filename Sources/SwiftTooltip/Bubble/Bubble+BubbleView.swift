@@ -28,12 +28,14 @@ public extension Bubble {
         
         var text: String? {
             didSet {
+                textLabel.text = text
                 setNeedsDisplay()
             }
         }
         
         var accessoryText: String? {
             didSet {
+                accessoryLabel.text = accessoryText
                 setNeedsDisplay()
             }
         }
