@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  UIView+Helpers.swift
 //  
 //
 //  Created by Dzmitry Arlou on 10/4/21.
@@ -13,6 +13,11 @@ extension UIView {
         let radians = angle / 180.0 * CGFloat.pi
         let rotation = self.transform.rotated(by: radians)
         self.transform = rotation
+    }
+    
+    func captureImage() -> UIImage? {
+        let renderer = UIGraphicsImageRenderer(size: frame.size)
+        return renderer.image { _ in drawHierarchy(in: bounds, afterScreenUpdates: true) }
     }
     
 }
