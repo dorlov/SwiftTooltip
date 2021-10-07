@@ -49,7 +49,7 @@ public extension Bubble {
 
         private lazy var anchorView: UIView = {
             let anchorView = UIView()
-            stackView.translatesAutoresizingMaskIntoConstraints = false
+            anchorView.translatesAutoresizingMaskIntoConstraints = false
             anchorView.makeSize(equalTo: CGSize(width: 1, height: 1))
             anchorView.backgroundColor = .clear
             return anchorView
