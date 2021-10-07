@@ -61,7 +61,19 @@ extension PinView {
         return self
     }
     
-    // MARK: - Width constraints
+    @discardableResult
+    func putBelow(_ aboveView: UIView, inset: CGFloat = .zero) -> UIView {
+        self.topAnchor.constraint(equalTo: aboveView.bottomAnchor, constant: inset).isActive = true
+        return self
+    }
+    
+    @discardableResult
+    func putAbove(_ belowView: UIView, inset: CGFloat = .zero) -> UIView {
+        self.bottomAnchor.constraint(equalTo: belowView.topAnchor, constant: inset).isActive = true
+        return self
+    }
+    
+    // MARK: - Width Constraints
     
     @discardableResult
     func makeWidth(_ width: CGFloat) -> PinView {
@@ -78,6 +90,16 @@ extension PinView {
     @discardableResult
     func makeMinWidth(_ width: CGFloat) -> PinView {
         self.widthAnchor.constraint(greaterThanOrEqualToConstant: width).isActive = true
+        return self
+    }
+    
+    @discardableResult
+    func makeWidthLessThenOrEqualToSuperview(multipliedBy amount: CGFloat = 0) -> UIView {
+        if amount > 0 {
+            self.widthAnchor.constraint(greaterThanOrEqualTo: self.parent.widthAnchor, multiplier: amount).isActive = true
+        } else {
+            self.widthAnchor.constraint(lessThanOrEqualTo: self.parent.widthAnchor).isActive = true
+        }
         return self
     }
     
@@ -98,6 +120,22 @@ extension PinView {
     @discardableResult
     func makeMinHeight(_ height: CGFloat) -> PinView {
         self.heightAnchor.constraint(lessThanOrEqualToConstant: height).isActive = true
+        return self
+    }
+    
+    @discardableResult
+    func makeSize(equalTo size: CGSize) -> UIView {
+        makeHeight(size.height)
+        makeWidth(size.width)
+        return self
+    }
+    
+    @discardableResult
+    func pinToSuperview(insets: UIEdgeInsets = .zero) -> UIView {
+        pinToTop(inset: insets.top)
+        pinToLeft(inset: insets.left)
+        pinToRight(inset: insets.right)
+        pinToBottom(inset: insets.bottom)
         return self
     }
     
