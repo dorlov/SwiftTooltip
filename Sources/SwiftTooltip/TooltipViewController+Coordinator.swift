@@ -33,7 +33,7 @@ extension TooltipViewController {
             
             let viewModel = ViewModel(tooltips: tooltips, coordinator: self)
             
-            let tooltipVC = TooltipViewController(viewModel: viewModel)
+            let tooltipVC = TooltipViewController(viewModel: viewModel, presenterView: presenterVC?.view)
             self.rootVC = tooltipVC
             tooltipVC.modalPresentationStyle = .custom
             
