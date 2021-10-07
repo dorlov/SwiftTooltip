@@ -55,6 +55,15 @@ final class TooltipViewController: UIViewController {
         currentHighlightedView?.removeFromSuperview()
     }
     
+    private func tooltipView(for tooltip: Tooltip) -> UIView? {
+        for subview in tooltipViews {
+            if let tooltipView = subview as? TooltipHighlightedView, tooltipView.tooltip.id == tooltip.id {
+                return subview
+            }
+        }
+        return nil
+    }
+    
 }
 
 // MARK: - Helpers
@@ -67,7 +76,7 @@ extension UIView {
         for subview in subviews {
             result += subview.tooltipViews()
             
-            if subview is TooltipView, subview.isHidden == false, subview.frame.height != CGFloat.zero {
+            if subview is TooltipHighlightedView, subview.isHidden == false, subview.frame.height != CGFloat.zero {
                 result.append(subview)
             }
         }
