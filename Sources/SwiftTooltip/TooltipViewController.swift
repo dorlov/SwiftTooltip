@@ -15,6 +15,7 @@ final class TooltipViewController: UIViewController {
     private weak var presenterView: UIView?
     private var currentBubbleView: Bubble.BubbleView?
     private var currentHighlightedView: UIImageView?
+    private var initialScrollContentOffset = CGPoint.zero
     private lazy var tooltipViews: [UIView] = {
         self.presenterView?.tooltipViews() ?? []
     }()
@@ -68,6 +69,55 @@ final class TooltipViewController: UIViewController {
             }
         }
         return nil
+    }
+    
+    private func targetScrollContentOffset(forConvertedFrame convertedFrame: CGRect) -> CGPoint? {
+        guard let scrollView = self.tipsScrollView else { return nil }
+        
+        if !view.safeAreaLayoutGuide.layoutFrame.contains(convertedFrame) {
+            let isConvertedFrameOutOfTop = (convertedFrame.origin.y - scrollView.contentOffset.y) < self.view.safeAreaInsets.top
+
+            if convertedFrame.origin.y < 0 || isConvertedFrameOutOfTop {
+                return initialScrollContentOffset
+            } else {
+                var currentOffset = scrollView.contentOffset
+                currentOffset.y += convertedFrame.maxY - self.view.safeAreaLayoutGuide.layoutFrame.height
+                return currentOffset
+            }
+        }
+        
+        let isFrameInTopScreenBounds = convertedFrame.origin.y < view.safeAreaLayoutGuide.layoutFrame.height / 2
+        if (scrollView.contentOffset.y > 0) && isFrameInTopScreenBounds {
+            return initialScrollContentOffset
+        }
+        
+        return nil
+    }
+
+    
+    private func convertedFrame(for tooltipView: UIView, completion: @escaping (CGRect?) -> Void) {
+        guard var convertedFrame = tooltipView.superview?.convert(tooltipView.frame, to: view) else {
+            completion(nil)
+            return
+        }
+        
+        if let newContentOffset = targetScrollContentOffset(forConvertedFrame: convertedFrame) {
+            self.tipsScrollView?.setContentOffset(
+                newContentOffset,
+                animated: true
+            ) {
+                convertedFrame = tooltipView.superview?.convert(tooltipView.frame, to: self.view) ?? convertedFrame
+                completion(convertedFrame)
+            }
+            
+        } else {
+            completion(convertedFrame)
+        }
+
+    }
+    
+    private var tipsScrollView: UIScrollView? {
+        presenterView?.subviews.first as? UIScrollView
     }
     
 }

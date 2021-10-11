@@ -21,3 +21,21 @@ extension UIView {
     }
     
 }
+
+extension UIScrollView {
+    
+    func setContentOffset(_ offset: CGPoint, animated: Bool, completion: @escaping () -> Void) {
+        guard animated else {
+            contentOffset = offset
+            return
+        }
+        
+        UIView.animate(
+            withDuration: 0.3,
+            animations: { self.contentOffset = offset },
+            completion: { _ in
+                completion()
+            })
+    }
+
+}
