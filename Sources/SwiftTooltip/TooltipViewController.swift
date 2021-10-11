@@ -33,11 +33,17 @@ final class TooltipViewController: UIViewController {
     
     // MARK: - Overrides
     
-    public override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupViews()
+        bindViewModel()
     }
     
     // MARK: - Private
+    
+    private func setupViews() {
+        // to connect background from Tips Config
+    }
     
     private func bindViewModel() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView))
