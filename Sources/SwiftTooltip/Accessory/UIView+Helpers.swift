@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  UIView+Helpers.swift
 //  
 //
 //  Created by Dzmitry Arlou on 10/4/21.
@@ -15,4 +15,27 @@ extension UIView {
         self.transform = rotation
     }
     
+    func captureImage() -> UIImage? {
+        let renderer = UIGraphicsImageRenderer(size: frame.size)
+        return renderer.image { _ in drawHierarchy(in: bounds, afterScreenUpdates: true) }
+    }
+    
+}
+
+extension UIScrollView {
+    
+    func setContentOffset(_ offset: CGPoint, animated: Bool, completion: @escaping () -> Void) {
+        guard animated else {
+            contentOffset = offset
+            return
+        }
+        
+        UIView.animate(
+            withDuration: 0.3,
+            animations: { self.contentOffset = offset },
+            completion: { _ in
+                completion()
+            })
+    }
+
 }
