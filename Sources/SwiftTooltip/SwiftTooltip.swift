@@ -7,15 +7,25 @@
 
 import UIKit
 
-struct Tooltip: Identifiable {
+public struct Tooltip: Identifiable {
     
-    var id: String = UUID().uuidString
-    var message: String
-    var calloutConfig: Bubble.CalloutConfig
+    public var id: String = UUID().uuidString
+    public var message: String
+    public var calloutConfig: Bubble.CalloutConfig
+    
+    public init(
+        id: String = UUID().uuidString,
+        message: String,
+        calloutConfig: Bubble.CalloutConfig
+    ) {
+        self.id = id
+        self.message = message
+        self.calloutConfig = calloutConfig
+    }
     
 }
 
-protocol TooltipHighlightedView {
+public protocol TooltipHighlightedView {
     
     var tooltip: Tooltip { get }
     
