@@ -62,7 +62,7 @@ final class TooltipViewController: UIViewController {
         currentHighlightedView?.removeFromSuperview()
     }
     
-    private func tooltipView(for tooltip: Tooltip) -> UIView? {
+    private func tooltipView(for tooltip: TooltipItem) -> UIView? {
         for subview in tooltipViews {
             if let tooltipView = subview as? TooltipHighlightedView, tooltipView.tooltip.id == tooltip.id {
                 return subview

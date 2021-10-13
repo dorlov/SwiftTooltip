@@ -5,7 +5,7 @@
         
         func testExample() {
             let message = "Tooltip message"
-            let tooltip = Tooltip(message: message, calloutConfig: .default)
+            let tooltip = TooltipItem(message: message, calloutConfig: .default)
             XCTAssertEqual(tooltip.message, message)
         }
     }

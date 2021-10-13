@@ -26,7 +26,7 @@ extension TooltipViewController {
         }
         
         func start(
-            with tooltips: [Tooltip],
+            with tooltips: [TooltipItem],
             onFinish: (() -> Void)?
         ) {
             self.onFinish = onFinish
