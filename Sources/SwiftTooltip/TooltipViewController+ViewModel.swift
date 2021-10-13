@@ -14,11 +14,11 @@ extension TooltipViewController {
         // MARK: - Properties
         
         var onShowNextTip: ((TooltipDesription) -> Void)?
-        private var tooltips: [Tooltip]
+        private var tooltips: [TooltipItem]
         private let coordinator: TooltipCoordinator
                 
         init(
-            tooltips: [Tooltip],
+            tooltips: [TooltipItem],
             coordinator: TooltipCoordinator
         ) {
             self.tooltips = tooltips
@@ -51,7 +51,7 @@ extension TooltipViewController {
     }
     
     struct TooltipDesription {
-        var tooltip: Tooltip
+        var tooltip: TooltipItem
     }
     
 }

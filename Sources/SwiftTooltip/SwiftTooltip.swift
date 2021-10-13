@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct Tooltip: Identifiable {
+public struct TooltipItem: Identifiable {
     
     public var id: String = UUID().uuidString
     public var message: String
@@ -27,7 +27,20 @@ public struct Tooltip: Identifiable {
 
 public protocol TooltipHighlightedView {
     
-    var tooltip: Tooltip { get }
+    var tooltip: TooltipItem { get }
     
 }
 
+public final class Tooltips {
+    
+    public static func show(
+        _ tooltips: [TooltipItem],
+        in presenterVC: UIViewController?,
+        completion: (() -> Void)?
+    ) {
+        let coordinator = TooltipViewController.Coordinator(presenterVC: presenterVC)
+        coordinator.start(with: tooltips, onFinish: completion)
+    }
+    
+    
+}
